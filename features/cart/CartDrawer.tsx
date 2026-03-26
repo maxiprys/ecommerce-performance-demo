@@ -19,10 +19,7 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
   return (
     <>
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/40"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 bg-black/40" onClick={onClose} />
       )}
 
       <div
@@ -32,7 +29,9 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
       >
         <div className="p-4 border-b flex justify-between">
           <h2 className="font-bold text-lg text-black">Cart</h2>
-          <button onClick={onClose} className="text-black cursor-pointer">✕</button>
+          <button onClick={onClose} className="text-black cursor-pointer">
+            ✕
+          </button>
         </div>
 
         <div className="p-4 space-y-4">
@@ -41,10 +40,7 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
           )}
 
           {state.items.map((item) => (
-            <div
-              key={item.id}
-              className="flex justify-between items-center"
-            >
+            <div key={item.id} className="flex justify-between items-center">
               <div>
                 <p className="font-medium">{item.name}</p>
                 <p className="text-sm text-gray-500">
@@ -63,9 +59,7 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
         </div>
 
         <div className="p-4 border-t mt-auto">
-          <p className="font-bold mb-2">
-            Total: {formatPrice(total)}
-          </p>
+          <p className="font-bold mb-2">Total: {formatPrice(total)}</p>
 
           <button className="w-full bg-black text-white py-2 rounded cursor-pointer">
             Checkout

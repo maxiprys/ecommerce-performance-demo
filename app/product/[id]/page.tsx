@@ -2,11 +2,7 @@ import { products } from "@/features/products/data";
 import Image from "next/image";
 import { formatPrice } from "@/lib/formatPrice";
 
-export default function ProductPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function ProductPage({ params }: { params: { id: string } }) {
   const product = products.find((p) => p.id === params.id);
 
   if (!product) {
@@ -26,9 +22,7 @@ export default function ProductPage({
       </div>
 
       <h1 className="text-3xl font-bold mt-4">{product.name}</h1>
-      <p className="text-gray-600 mt-2">
-        {formatPrice(product.price)}
-      </p>
+      <p className="text-gray-600 mt-2">{formatPrice(product.price)}</p>
       <p className="mt-4">{product.description}</p>
     </div>
   );

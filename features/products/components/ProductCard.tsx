@@ -12,18 +12,18 @@ type Props = {
 };
 
 function ProductCard({ product }: Props) {
-    const { addItem } = useCart();
+  const { addItem } = useCart();
 
-    const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        
-        addItem({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            quantity: 1,
-        });
-    };  
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+    });
+  };
 
   return (
     <Link href={`/product/${product.id}`}>
@@ -42,10 +42,10 @@ function ProductCard({ product }: Props) {
         <p className="text-gray-600">{formatPrice(product.price)}</p>
 
         <button
-            onClick={handleAddToCart}
-            className="mt-3 bg-black text-white px-3 py-1 rounded cursor-pointer"
+          onClick={handleAddToCart}
+          className="mt-3 bg-black text-white px-3 py-1 rounded cursor-pointer"
         >
-            Add to cart
+          Add to cart
         </button>
       </div>
     </Link>
