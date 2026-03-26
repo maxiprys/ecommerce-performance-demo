@@ -19,7 +19,7 @@ function ProductCard({ product }: Props) {
 
     addItem({
       id: product.id,
-      name: product.name,
+      title: product.title,
       price: product.price,
       quantity: 1,
     });
@@ -31,14 +31,14 @@ function ProductCard({ product }: Props) {
         <div className="relative w-full h-48">
           <Image
             src={product.image}
-            alt={product.name}
+            alt={product.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="object-cover rounded-md"
           />
         </div>
 
-        <h2 className="mt-3 font-semibold">{product.name}</h2>
+        <h2 className="mt-3 font-semibold">{product.title}</h2>
         <p className="text-gray-600">{formatPrice(product.price)}</p>
 
         <button
