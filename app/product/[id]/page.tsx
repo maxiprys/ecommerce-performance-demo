@@ -3,6 +3,7 @@ import Link from "next/link";
 import { formatPrice } from "@/lib/formatPrice";
 import { API } from "@/services/fakeStoreApi";
 import AddToCartButton from "@/features/products/components/AddToCartButton";
+import { ArrowLeft } from "lucide-react";
 
 interface Props {
   params: Promise<{
@@ -22,7 +23,8 @@ export default async function ProductPage({ params }: Props) {
           href="/"
           className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 mb-4"
         >
-          ← Back to collection
+          <ArrowLeft />
+          Back to collection
         </Link>
         <p>Product not found</p>
       </div>
@@ -35,7 +37,8 @@ export default async function ProductPage({ params }: Props) {
         href="/"
         className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 mb-4"
       >
-        ← Back to collection
+        <ArrowLeft size={16} />
+        Back to collection
       </Link>
 
       <div className="relative w-full h-120">
@@ -54,7 +57,7 @@ export default async function ProductPage({ params }: Props) {
       <p className="text-gray-600 mt-2">{formatPrice(product.price)}</p>
       <p className="mt-4">{product.description}</p>
 
-      <AddToCartButton className="mt-4" product={product} />
+      <AddToCartButton className="mt-3" product={product} />
     </div>
   );
 }
