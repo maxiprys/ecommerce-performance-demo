@@ -1,6 +1,5 @@
-export type CartItem = {
-  id: string;
-  title: string;
-  price: number;
+import { Product } from "@/types/product";
+
+export type CartItem = Product & {
   quantity: number;
 };

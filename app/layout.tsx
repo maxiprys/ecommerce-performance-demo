@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/features/cart/CartContext";
+import { ProductsProvider } from "@/features/products/ProductsContext";
 
 export const metadata = {
   title: "E-commerce Demo",
@@ -15,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CartProvider>
-          <Navbar />
-          <main className="max-w-6xl mx-auto">{children}</main>
-        </CartProvider>
+        <ProductsProvider>
+          <CartProvider>
+            <Navbar />
+            <main className="max-w-6xl mx-auto">{children}</main>
+          </CartProvider>
+        </ProductsProvider>
       </body>
     </html>
   );

@@ -12,7 +12,7 @@ export default function Navbar() {
 
   return (
     <nav className="p-4 border-b mb-6 flex justify-between">
-      <h1 className="text-xl font-bold">E-commerce Demo</h1>
+      <h1 className="text-xl font-bold">My E-commerce Demo</h1>
 
       <button onClick={() => setOpen(true)} className="cursor-pointer">
         Cart ({totalItems})

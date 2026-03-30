@@ -9,12 +9,12 @@ type State = {
 
 type Action =
   | { type: "ADD_ITEM"; payload: CartItem }
-  | { type: "REMOVE_ITEM"; payload: string };
+  | { type: "REMOVE_ITEM"; payload: number };
 
 const CartContext = createContext<{
   state: State;
   addItem: (item: CartItem) => void;
-  removeItem: (id: string) => void;
+  removeItem: (id: number) => void;
 } | null>(null);
 
 const initialState: State = {
@@ -59,7 +59,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const addItem = (item: CartItem) =>
     dispatch({ type: "ADD_ITEM", payload: item });
 
-  const removeItem = (id: string) =>
+  const removeItem = (id: number) =>
     dispatch({ type: "REMOVE_ITEM", payload: id });
 
   return (
