@@ -26,6 +26,7 @@ export default async function ProductPage({ params }: Props) {
           <ArrowLeft />
           Back to collection
         </Link>
+
         <p>Product not found</p>
       </div>
     );
