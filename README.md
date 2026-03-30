@@ -75,4 +75,4 @@ Mostly to have a small, focused project where I could play with performance and 
 
 ## Author
 
-Frontend developer working mainly with React and TypeScript.
+Maximiliano Prystupczuk (Frontend developer working mainly with React and TypeScript)
