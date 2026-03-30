@@ -8,18 +8,19 @@ The goal of this project was to experiment with performance optimizations and ke
 
 ## Tech stack
 
-* Next.js (App Router)
-* TypeScript
-* Tailwind CSS
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- ShadCN
 
 ---
 
 ## What’s included
 
-* Product listing page
-* Dynamic product detail pages
-* Responsive layout
-* Reusable components
+- Product listing page
+- Dynamic product detail pages
+- Responsive layout
+- Reusable components
 
 ---
 
@@ -27,10 +28,10 @@ The goal of this project was to experiment with performance optimizations and ke
 
 Some small things I focused on while building this:
 
-* Using `next/image` for optimized images
-* Avoiding unnecessary re-renders (memoized components)
-* Keeping components small and focused
-* Basic responsive image sizing
+- Using `next/image` for optimized images
+- Avoiding unnecessary re-renders (memoized components)
+- Keeping components small and focused
+- Basic responsive image sizing
 
 Nothing overly complex, just trying to keep things efficient and realistic.
 
