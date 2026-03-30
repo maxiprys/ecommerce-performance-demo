@@ -15,7 +15,10 @@ export default function Navbar() {
     <nav className="p-4 border-b mb-6 flex justify-between">
       <h1 className="text-xl font-bold">My E-commerce Demo</h1>
 
-      <button onClick={() => setOpen(true)} className="cursor-pointer flex items-center gap-2">
+      <button
+        onClick={() => setOpen(true)}
+        className="cursor-pointer flex items-center gap-2"
+      >
         <ShoppingCart size={18} />
         Cart ({totalItems})
       </button>
