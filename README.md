@@ -1,58 +1,70 @@
-# E-commerce Frontend (Next.js)
+# E-commerce Performance Demo (Next.js)
 
-Small e-commerce frontend built with Next.js and TypeScript.
+Frontend e-commerce application built with Next.js and TypeScript, focused on performance, scalability, and clean architecture.
 
-The goal of this project was to experiment with performance optimizations and keep a clean, maintainable structure similar to what I’ve used in real-world projects.
+This project simulates a real-world product listing experience, applying best practices commonly used in production environments.
 
 ---
 
-## Tech stack
+## 🚀 Tech Stack
 
 - Next.js (App Router)
+- React
 - TypeScript
 - Tailwind CSS
-- ShadCN
+- ShadCN UI
 
 ---
 
-## What’s included
+## ✨ Features
 
-- Product listing page
+- Product listing with API integration
 - Dynamic product detail pages
-- Responsive layout
-- Reusable components
+- Image fallback handling (error resilience)
+- Loading states (skeleton UI)
+- Responsive design
+- Basic performance optimizations
 
 ---
 
-## Notes on performance
+## ⚡ Performance & Best Practices
 
-Some small things I focused on while building this:
+This project focuses on practical performance improvements:
 
-- Using `next/image` for optimized images
-- Avoiding unnecessary re-renders (memoized components)
-- Keeping components small and focused
-- Basic responsive image sizing
-
-Nothing overly complex, just trying to keep things efficient and realistic.
+- Optimized image loading using `next/image`
+- Parallel data fetching (`Promise.all`)
+- Efficient data mapping using `Map` (avoiding O(n²))
+- Avoiding unnecessary re-renders
+- Component-driven architecture
 
 ---
 
-## Project structure
+## 🏗 Architecture
 
-I used a simple feature-based structure to keep things organized:
+The project follows a feature-based structure to improve scalability and maintainability:
 
 ```
-/app
-/features
-/components
-/hooks
-/lib
-/types
+/app        → routing & pages
+/features   → domain logic (products, cart, etc.)
+/components → reusable UI components
+/services   → API layer
+/hooks      → reusable logic
+/types      → shared types
+/lib        → utilities
 ```
 
 ---
 
-## Running locally
+## 🧠 Key Decisions
+
+- Separation between API layer and UI components
+- Use of reusable components to avoid duplication
+- Graceful handling of API and image failures
+- Focus on simplicity without overengineering
+
+---
+
+## ▶️ Getting Started
 
 ```bash
 npm install
@@ -61,18 +73,19 @@ npm run dev
 
 ---
 
-## Live demo
+## 🌐 Live Demo
 
-PENDING - TO DO!
-
----
-
-## Why I built this
-
-Mostly to have a small, focused project where I could play with performance and structure without overengineering things.
+(Coming soon)
 
 ---
 
-## Author
+## 📌 Motivation
 
-Maximiliano Prystupczuk (Frontend developer working mainly with React and TypeScript)
+The goal of this project was to build a realistic frontend application while focusing on performance, maintainability, and clean architecture — similar to real production environments.
+
+---
+
+## 👨‍💻 Author
+
+Maximiliano Prystupczuk
+Senior Frontend Developer (React, Next.js, TypeScript)
