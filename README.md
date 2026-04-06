@@ -75,7 +75,9 @@ npm run dev
 
 ## 🌐 Live Demo
 
-(Coming soon)
+You can check the live version here:
+
+👉 https://ecommerce-demo-lac-seven.vercel.app/
 
 ---
 
