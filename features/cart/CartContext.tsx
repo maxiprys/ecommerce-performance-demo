@@ -9,12 +9,16 @@ type State = {
 
 type Action =
   | { type: "ADD_ITEM"; payload: CartLineItem }
-  | { type: "REMOVE_ITEM"; payload: number };
+  | { type: "REMOVE_ITEM"; payload: number }
+  | { type: "INCREASE_ITEM"; payload: number }
+  | { type: "DECREASE_ITEM"; payload: number };
 
 const CartContext = createContext<{
   state: State;
   addItem: (item: CartLineItem) => void;
   removeItem: (id: number) => void;
+  increaseItem: (id: number) => void;
+  decreaseItem: (id: number) => void;
 } | null>(null);
 
 const initialState: State = {
@@ -51,6 +55,26 @@ function reducer(state: State, action: Action): State {
         items: state.items.filter((item) => item.id !== action.payload),
       };
 
+    case "INCREASE_ITEM":
+      return {
+        items: state.items.map((item) =>
+          item.id === action.payload
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        ),
+      };
+
+    case "DECREASE_ITEM":
+      return {
+        items: state.items
+          .map((item) =>
+            item.id === action.payload
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+          .filter((item) => item.quantity > 0),
+      };
+
     default:
       return state;
   }
@@ -65,8 +89,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeItem = (id: number) =>
     dispatch({ type: "REMOVE_ITEM", payload: id });
 
+  const increaseItem = (id: number) =>
+    dispatch({ type: "INCREASE_ITEM", payload: id });
+
+  const decreaseItem = (id: number) =>
+    dispatch({ type: "DECREASE_ITEM", payload: id });
+
   return (
-    <CartContext.Provider value={{ state, addItem, removeItem }}>
+    <CartContext.Provider
+      value={{ state, addItem, removeItem, increaseItem, decreaseItem }}
+    >
       {children}
     </CartContext.Provider>
   );
