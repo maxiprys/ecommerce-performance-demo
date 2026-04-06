@@ -35,7 +35,7 @@ export default function AddToCartButton({ className, product }: Props) {
           ? `${product.title} in cart: ${quantityInCart}`
           : `Add ${product.title} to cart`
       }
-      className={`${!isAdded ? "bg-emerald-600 text-white hover:bg-emerald-700" : ""} ${className ?? ""} cursor-pointer`.trim()}
+      className={`${!isAdded ? "bg-emerald-600 text-white hover:bg-emerald-700" : ""} ${className ?? ""}`.trim()}
       onClick={handleAddToCart}
       type="button"
     >
