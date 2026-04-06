@@ -1,7 +1,7 @@
 "use client";
 
 import { useId } from "react";
-import { Search } from "lucide-react";
+import { Search, SearchX } from "lucide-react";
 import ProductCard from "@/features/products/components/ProductCard";
 import { useProductCatalog } from "@/features/products/hooks/useProductCatalog";
 import type { Product } from "@/types/product";
@@ -77,6 +77,30 @@ export default function ProductCatalog({
           </li>
         ))}
       </ul>
+
+      {!error && !isSearchPending && products.length === 0 && (
+        <div className="bg-muted/30 rounded-2xl border px-6 py-10 text-center">
+          <SearchX
+            className="mx-auto mb-3 size-9 text-zinc-400 dark:text-zinc-500"
+            aria-hidden
+          />
+          <h3 className="text-base font-semibold">No products found</h3>
+          <p className="text-muted-foreground mx-auto mt-1 max-w-md text-sm">
+            Try a different search term or clear the current filter to explore
+            the full catalog.
+          </p>
+          {inputValue.trim().length > 0 && (
+            <Button
+              className="mt-5"
+              onClick={() => setInputValue("")}
+              type="button"
+              variant="outline"
+            >
+              Clear search
+            </Button>
+          )}
+        </div>
+      )}
 
       {hasMore && products.length > 0 && (
         <div className="flex justify-center pt-4">
