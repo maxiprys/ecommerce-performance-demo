@@ -1,14 +1,18 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "./CartContext";
 import { formatPrice } from "@/lib/formatPrice";
+import { Button } from "@/components/ui/button";
 
 type Props = {
+  id?: string;
   isOpen: boolean;
   onClose: () => void;
 };
 
-export default function CartDrawer({ isOpen, onClose }: Props) {
+export default function CartDrawer({ id, isOpen, onClose }: Props) {
   const { state, removeItem } = useCart();
 
   const total = state.items.reduce(
@@ -19,38 +23,88 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/40" onClick={onClose} />
+        <button
+          aria-label="Close cart overlay"
+          className="fixed inset-0 z-50 bg-black/40"
+          onClick={onClose}
+          type="button"
+        />
       )}
 
       <div
-        className={`z-1 fixed top-0 right-0 h-full w-80 bg-white shadow-lg transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col border-l border-zinc-200 bg-white text-zinc-900 shadow-2xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        aria-hidden={!isOpen}
+        id={id}
+        inert={!isOpen ? true : undefined}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={id ? `${id}-title` : undefined}
       >
-        <div className="p-4 border-b flex justify-between">
-          <h2 className="font-bold text-lg text-black">Cart</h2>
-          <button onClick={onClose} className="text-black cursor-pointer">
+        <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-4 dark:border-zinc-800">
+          <h2
+            className="text-lg font-semibold"
+            id={id ? `${id}-title` : undefined}
+          >
+            Cart
+          </h2>
+          <button
+            className="rounded-md p-1.5 transition hover:bg-zinc-100 dark:hover:bg-zinc-900"
+            onClick={onClose}
+            type="button"
+            aria-label="Close cart"
+          >
             ✕
           </button>
         </div>
 
-        <div className="p-4 space-y-4">
+        <div className="min-h-[240px] flex-1 space-y-4 overflow-y-auto px-5 py-4">
           {state.items.length === 0 && (
-            <p className="text-gray-500">Your cart is empty</p>
+            <p className="text-muted-foreground text-sm">Your cart is empty</p>
           )}
 
           {state.items.map((item) => (
-            <div key={item.id} className="flex justify-between items-center">
-              <div>
-                <p className="font-medium">{item.name}</p>
-                <p className="text-sm text-gray-500">
-                  {item.quantity} x {formatPrice(item.price)}
-                </p>
+            <div
+              key={item.id}
+              className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-900/60"
+            >
+              <div className="flex min-w-0 flex-1 gap-3">
+                <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-white dark:bg-zinc-950">
+                  <span className="relative block size-full" aria-hidden>
+                    {item.image ? (
+                      <Image
+                        alt=""
+                        className="object-cover"
+                        fill
+                        sizes="56px"
+                        src={item.image}
+                      />
+                    ) : (
+                      <Image
+                        alt=""
+                        className="object-contain p-1"
+                        fill
+                        sizes="56px"
+                        src="/images/placeholder.svg"
+                      />
+                    )}
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <p className="line-clamp-2 text-sm font-medium leading-snug">
+                    {item.title}
+                  </p>
+                  <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                    {item.quantity} × {formatPrice(item.price)}
+                  </p>
+                </div>
               </div>
 
               <button
+                className="shrink-0 rounded-md px-2 py-1 text-sm text-red-600 transition hover:bg-red-50 hover:text-red-700 dark:text-red-400 dark:hover:bg-red-950/40 dark:hover:text-red-300"
                 onClick={() => removeItem(item.id)}
-                className="text-red-500 text-sm cursor-pointer"
+                type="button"
               >
                 Remove
               </button>
@@ -58,12 +112,20 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
           ))}
         </div>
 
-        <div className="p-4 border-t mt-auto">
-          <p className="font-bold mb-2">Total: {formatPrice(total)}</p>
+        <div className="border-t border-zinc-200 px-5 py-4 dark:border-zinc-800">
+          <p className="mb-3 text-base font-semibold">Total: {formatPrice(total)}</p>
 
-          <button className="w-full bg-black text-white py-2 rounded cursor-pointer">
-            Checkout
-          </button>
+          {state.items.length === 0 ? (
+            <Button className="w-full" disabled type="button">
+              Go to checkout
+            </Button>
+          ) : (
+            <Button asChild className="w-full">
+              <Link href="/checkout" onClick={onClose}>
+                Go to checkout
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </>

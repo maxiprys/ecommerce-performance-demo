@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "@/lib/formatPrice";
-import { API } from "@/services/fakeStoreApi";
+import { API } from "@/services/api";
 import AddToCartButton from "@/features/products/components/AddToCartButton";
 import { ArrowLeft } from "lucide-react";
 
@@ -16,14 +16,16 @@ export default async function ProductPage({ params }: Props) {
 
   const product = await API.getProductById(id);
 
+  const image = product?.images[0];
+
   if (!product) {
     return (
-      <div className="p-6 max-w-3xl mx-auto">
+      <div className="mx-auto max-w-3xl p-6">
         <Link
+          className="text-muted-foreground hover:text-foreground mb-4 inline-flex items-center gap-1 text-sm"
           href="/"
-          className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 mb-4"
         >
-          <ArrowLeft />
+          <ArrowLeft className="size-4" aria-hidden />
           Back to collection
         </Link>
 
@@ -33,32 +35,51 @@ export default async function ProductPage({ params }: Props) {
   }
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="mx-auto max-w-3xl p-6">
       <Link
+        className="text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1 text-sm"
         href="/"
-        className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 mb-4"
       >
-        <ArrowLeft size={16} />
+        <ArrowLeft className="size-4" aria-hidden />
         Back to collection
       </Link>
 
-      <div className="relative w-full h-120">
-        {product.image && (
+      <div className="relative aspect-square w-full max-w-xl sm:aspect-[4/3]">
+        {image ? (
           <Image
-            src={product.image}
             alt={product.title}
+            className="rounded-xl object-contain"
             fill
-            sizes="100vw"
-            className="object-contain rounded-md"
+            priority
+            sizes="(max-width: 768px) 100vw, 672px"
+            src={image}
+          />
+        ) : (
+          <Image
+            alt={product.title}
+            className="rounded-xl object-contain"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 672px"
+            src="/images/placeholder.svg"
           />
         )}
       </div>
 
-      <h1 className="text-3xl font-bold mt-4">{product.title}</h1>
-      <p className="text-gray-600 mt-2">{formatPrice(product.price)}</p>
-      <p className="mt-4">{product.description}</p>
+      <h1 className="mt-6 text-3xl font-semibold tracking-tight">
+        {product.title}
+      </h1>
+      <p className="text-muted-foreground mt-2 text-lg">
+        {formatPrice(product.price)}
+      </p>
+      {product.category?.name && (
+        <p className="text-muted-foreground mt-1 text-sm">
+          {product.category.name}
+        </p>
+      )}
+      <p className="mt-6 leading-relaxed">{product.description}</p>
 
-      <AddToCartButton className="mt-3" product={product} />
+      <AddToCartButton className="mt-6" product={product} />
     </div>
   );
 }

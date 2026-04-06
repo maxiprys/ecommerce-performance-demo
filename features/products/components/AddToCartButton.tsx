@@ -6,35 +6,41 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
 type Props = {
-  className: string;
+  className?: string;
   product: Product;
 };
 
-export default function AddToCartButton(props: Props) {
-  const { addItem } = useCart();
+export default function AddToCartButton({ className, product }: Props) {
+  const { addItem, state } = useCart();
+  const quantityInCart =
+    state.items.find((item) => item.id === product.id)?.quantity ?? 0;
+  const isAdded = quantityInCart > 0;
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     addItem({
-      id: props.product.id,
-      title: props.product.title,
-      price: props.product.price,
+      id: product.id,
+      title: product.title,
+      price: product.price,
       quantity: 1,
+      image: product.images[0],
     });
   };
 
   return (
     <Button
-      aria-label="Submit"
-      className={
-        props.className + " min-w-[110px] bg-red-400 text-white cursor-pointer"
+      aria-label={
+        isAdded
+          ? `${product.title} in cart: ${quantityInCart}`
+          : `Add ${product.title} to cart`
       }
+      className={`${!isAdded ? "bg-emerald-600 text-white hover:bg-emerald-700" : ""} ${className ?? ""} cursor-pointer`.trim()}
       onClick={handleAddToCart}
-      variant="outline"
+      type="button"
     >
-      Add to cart
-      <Plus />
+      {isAdded ? `In cart: ${quantityInCart}` : "Add to cart"}
+      <Plus aria-hidden className="size-4" />
     </Button>
   );
 }

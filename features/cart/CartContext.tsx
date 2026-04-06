@@ -1,19 +1,19 @@
 "use client";
 
 import { createContext, useContext, useReducer, ReactNode } from "react";
-import { CartItem } from "./types";
+import type { CartLineItem } from "@/types/cart";
 
 type State = {
-  items: CartItem[];
+  items: CartLineItem[];
 };
 
 type Action =
-  | { type: "ADD_ITEM"; payload: CartItem }
+  | { type: "ADD_ITEM"; payload: CartLineItem }
   | { type: "REMOVE_ITEM"; payload: number };
 
 const CartContext = createContext<{
   state: State;
-  addItem: (item: CartItem) => void;
+  addItem: (item: CartLineItem) => void;
   removeItem: (id: number) => void;
 } | null>(null);
 
@@ -32,14 +32,17 @@ function reducer(state: State, action: Action): State {
         return {
           items: state.items.map((item) =>
             item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
+              ? {
+                  ...item,
+                  quantity: item.quantity + action.payload.quantity,
+                }
               : item
           ),
         };
       }
 
       return {
-        items: [...state.items, { ...action.payload, quantity: 1 }],
+        items: [...state.items, action.payload],
       };
     }
 
@@ -56,7 +59,7 @@ function reducer(state: State, action: Action): State {
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addItem = (item: CartItem) =>
+  const addItem = (item: CartLineItem) =>
     dispatch({ type: "ADD_ITEM", payload: item });
 
   const removeItem = (id: number) =>

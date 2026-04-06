@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types/product";
@@ -11,30 +11,37 @@ type Props = {
 };
 
 function ProductCard({ product }: Props) {
+  const [image] = product.images;
+  const [hasImageError, setHasImageError] = useState(false);
+
+  const src = hasImageError ? "/images/placeholder.svg" : image || "/images/placeholder.svg";
+
   return (
-    <div className="hover:shadow-lg transition overflow-auto">
-      <Link href={`/product/${product.id}`}>
-        <div className="relative w-full h-70 rounded-xl bg-white cursor-pointer">
-          {product.image && (
-            <Image
-              alt={product.title}
-              className="object-contain"
-              fill
-              sizes="(max-width: 768px) 100vw, 25vw"
-              src={product.image}
-            />
-          )}
+    <article>
+      <Link
+        className="focus-visible:ring-ring bg-card border-border group block overflow-hidden rounded-2xl border shadow-sm transition hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
+        href={`/product/${product.id}`}
+      >
+        <div className="relative aspect-[4/5] w-full">
+          <Image
+            key={src}
+            alt=""
+            className="object-contain p-4 transition group-hover:scale-[1.02]"
+            fill
+            sizes="(max-width: 768px) 100vw, 25vw"
+            src={src}
+            onError={() => setHasImageError(true)}
+          />
+        </div>
+
+        <div className="space-y-1 px-4 pb-4">
+          <h2 className="line-clamp-2 font-medium leading-snug">{product.title}</h2>
+          <p className="text-muted-foreground text-sm tabular-nums">
+            {formatPrice(product.price)}
+          </p>
         </div>
       </Link>
-
-      <section className="flex items-start mt-3 gap-3 justify-between">
-        <section>
-          <h2 className="font-semibold">{product.title}</h2>
-
-          <p className="text-gray-400">{formatPrice(product.price)}</p>
-        </section>
-      </section>
-    </div>
+    </article>
   );
 }
 
