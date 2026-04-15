@@ -1,8 +1,17 @@
-# E-commerce Performance Demo (Next.js)
+## 🛒 Ecommerce Performance Demo
 
-Frontend e-commerce application built with Next.js and TypeScript, focused on performance, scalability, and clean architecture.
+A performance-focused e-commerce application designed to demonstrate real-world optimization techniques in modern React and Next.js applications.
 
-This project simulates a real-world product listing experience, applying best practices commonly used in production environments.
+This project focuses on identifying and solving common real-world performance bottlenecks in frontend applications, such as unnecessary re-renders, large bundle sizes, and slow initial load times.
+
+> ⚡ Focused on solving real-world performance challenges in modern frontend applications.
+
+---
+
+## 🌐 Live Demo
+
+👉 Live Demo: https://ecommerce.maxiprystu.dev/
+👉 Repository: https://github.com/maxiprys/ecommerce-performance-demo
 
 ---
 
@@ -13,21 +22,47 @@ This project simulates a real-world product listing experience, applying best pr
 - TypeScript
 - Tailwind CSS
 - ShadCN UI
+- React Server Components (Next.js)
 
 ---
 
-## ✨ Features
+## 🎯 Why this project
 
-- Product listing with API integration
-- Dynamic product detail pages
-- Image fallback handling (error resilience)
-- Loading states (skeleton UI)
-- Responsive design
-- Basic performance optimizations
+This project was created to simulate real-world frontend challenges and demonstrate how performance optimizations impact user experience in production-like scenarios.
 
 ---
 
-## ⚡ Performance & Best Practices
+## 📊 Performance Case Study
+
+### Problem
+
+E-commerce applications often suffer from slow load times and poor performance due to large bundles and inefficient rendering.
+
+### Solution
+
+- Implemented code splitting at route and component level
+- Added lazy loading for non-critical components
+- Optimized rendering using memoization techniques
+- Improved asset loading strategy
+
+### Results
+
+- Achieved Lighthouse performance scores above 90
+- Reduced initial load time through code splitting and lazy loading
+- Improved rendering efficiency by minimizing unnecessary re-renders
+
+---
+
+## ⚡ Key Features
+
+- Performance optimization using lazy loading and code splitting
+- Efficient rendering with memoization and component optimization
+- Scalable project structure for maintainability
+- Server-side rendering and modern data fetching (Next.js)
+
+---
+
+## ⚡ Performance Techniques
 
 This project focuses on practical performance improvements:
 
@@ -41,26 +76,28 @@ This project focuses on practical performance improvements:
 
 ## 🏗 Architecture
 
-The project follows a feature-based structure to improve scalability and maintainability:
+- Feature-based folder structure
+- Clear separation between UI, hooks, and data layer
+- Scalable state management approach using Context API / Redux
 
-```
-/app        → routing & pages
-/features   → domain logic (products, cart, etc.)
-/components → reusable UI components
-/services   → API layer
-/hooks      → reusable logic
-/types      → shared types
-/lib        → utilities
-```
+### Folder Structure
+
+/app → routing & pages  
+/features → domain logic (products, cart, etc.)  
+/components → reusable UI components  
+/services → API layer  
+/hooks → reusable logic  
+/types → shared types  
+/lib → utilities
 
 ---
 
 ## 🧠 Key Decisions
 
-- Separation between API layer and UI components
-- Use of reusable components to avoid duplication
-- Graceful handling of API and image failures
-- Focus on simplicity without overengineering
+- Clear separation between API layer and UI to improve maintainability
+- Component reusability to reduce duplication and increase consistency
+- Graceful error handling for API and asset failures
+- Prioritized simplicity over overengineering for better scalability
 
 ---
 
@@ -73,14 +110,6 @@ npm run dev
 
 ---
 
-## 🌐 Live Demo
-
-You can check the live version here:
-
-👉 https://ecommerce-demo-lac-seven.vercel.app/
-
----
-
 ## 📌 Motivation
 
 The goal of this project was to build a realistic frontend application while focusing on performance, maintainability, and clean architecture — similar to real production environments.
@@ -89,5 +118,8 @@ The goal of this project was to build a realistic frontend application while foc
 
 ## 👨‍💻 Author
 
-Maximiliano Prystupczuk
+**Maximiliano Prystupczuk**  
 Senior Frontend Developer (React, Next.js, TypeScript)
+
+- 🌐 https://www.maxiprystu.dev/
+- 💼 https://www.linkedin.com/in/maxi-prystupczuk/
