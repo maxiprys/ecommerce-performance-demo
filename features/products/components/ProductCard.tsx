@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types/product";
@@ -12,11 +12,8 @@ type Props = {
 
 function ProductCard({ product }: Props) {
   const [image] = product.images;
-  const [hasImageError, setHasImageError] = useState(false);
 
-  const src = hasImageError
-    ? "/images/placeholder.svg"
-    : image || "/images/placeholder.svg";
+  const src = image || "/images/placeholder.svg";
 
   return (
     <article>
@@ -32,7 +29,7 @@ function ProductCard({ product }: Props) {
             fill
             sizes="(max-width: 768px) 100vw, 25vw"
             src={src}
-            onError={() => setHasImageError(true)}
+            priority={product.id === 1}
           />
         </div>
 

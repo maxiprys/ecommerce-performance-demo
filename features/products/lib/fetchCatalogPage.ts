@@ -11,7 +11,7 @@ export async function fetchCatalogPage(args: {
     limit: String(args.limit ?? CATALOG_PAGE_SIZE),
   });
   const title = args.title?.trim();
-  if (title) params.set("title", title);
+  if (title) params.set("search", title);
 
   const res = await fetch(`/api/products?${params.toString()}`);
 

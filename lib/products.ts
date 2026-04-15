@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 
-const now = new Date().toISOString();
+const now = "2026-04-15T17:48:55.209Z";
 
 const categories = {
   shoes: {

@@ -11,7 +11,9 @@ export async function GET(request: Request) {
     10
   );
 
-  const search = searchParams.get("search")?.toLowerCase() || "";
+  const rawSearch =
+    searchParams.get("search") ?? searchParams.get("title") ?? "";
+  const search = rawSearch.toLowerCase();
 
   // Delay to simulate
   await new Promise((res) => setTimeout(res, 500));
