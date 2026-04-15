@@ -1,7 +1,7 @@
 import { CATALOG_PAGE_SIZE } from "@/lib/catalog";
 import { Product } from "@/types/product";
 
-const BASE_URL = "https://api.escuelajs.co/api/v1/products";
+const BASE_URL = "/api/products";
 
 export type GetProductsParams = {
   offset?: number;
@@ -10,42 +10,57 @@ export type GetProductsParams = {
 };
 
 function buildProductsUrl(params: GetProductsParams): string {
-  const url = new URL(BASE_URL);
+  const searchParams = new URLSearchParams();
+
   const offset = params.offset ?? 0;
   const limit = params.limit ?? CATALOG_PAGE_SIZE;
-  url.searchParams.set("offset", String(offset));
-  url.searchParams.set("limit", String(limit));
+
+  searchParams.set("offset", String(offset));
+  searchParams.set("limit", String(limit));
+
   const title = params.title?.trim();
-  if (title) url.searchParams.set("title", title);
-  return url.toString();
+  if (title) {
+    searchParams.set("search", title);
+  }
+
+  return `${BASE_URL}?${searchParams.toString()}`;
+}
+
+function getBaseUrl() {
+  if (typeof window !== "undefined") {
+    return ""; // browser > relative path
+  }
+
+  // server > absolute path
+  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 }
 
 async function getProducts(params: GetProductsParams = {}): Promise<Product[]> {
   try {
-    const res = await fetch(buildProductsUrl(params));
+    const res = await fetch(`${getBaseUrl()}${buildProductsUrl(params)}`);
 
-    if (!res.ok) throw new Error("Error al obtener productos");
+    if (!res.ok) throw new Error("Error to get products");
 
     const data: Product[] = await res.json();
 
     return data;
   } catch (error) {
-    console.error(error);
+    console.error("getProducts error:", error);
     return [];
   }
 }
 
 async function getProductById(id: string): Promise<Product | null> {
   try {
-    const res = await fetch(`${BASE_URL}/${id}`);
+    const res = await fetch(`${getBaseUrl()}${BASE_URL}/${id}`);
 
-    if (!res.ok) throw new Error(`Producto con id ${id} no encontrado`);
+    if (!res.ok) throw new Error(`Product with id ${id} not found`);
 
     const data: Product = await res.json();
 
     return data;
   } catch (error) {
-    console.error(error);
+    console.error("getProductById error:", error);
     return null;
   }
 }

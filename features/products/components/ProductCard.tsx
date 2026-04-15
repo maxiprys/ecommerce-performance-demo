@@ -14,7 +14,9 @@ function ProductCard({ product }: Props) {
   const [image] = product.images;
   const [hasImageError, setHasImageError] = useState(false);
 
-  const src = hasImageError ? "/images/placeholder.svg" : image || "/images/placeholder.svg";
+  const src = hasImageError
+    ? "/images/placeholder.svg"
+    : image || "/images/placeholder.svg";
 
   return (
     <article>
@@ -22,7 +24,7 @@ function ProductCard({ product }: Props) {
         className="focus-visible:ring-ring bg-card border-border group block overflow-hidden rounded-2xl border shadow-sm transition hover:shadow-md focus-visible:ring-2 focus-visible:outline-none"
         href={`/product/${product.id}`}
       >
-        <div className="relative aspect-[4/5] w-full">
+        <div className="relative aspect-4/5 w-full">
           <Image
             key={src}
             alt=""
@@ -35,7 +37,9 @@ function ProductCard({ product }: Props) {
         </div>
 
         <div className="space-y-1 px-4 pb-4">
-          <h2 className="line-clamp-2 font-medium leading-snug">{product.title}</h2>
+          <h2 className="line-clamp-2 font-medium leading-snug">
+            {product.title}
+          </h2>
           <p className="text-muted-foreground text-sm tabular-nums">
             {formatPrice(product.price)}
           </p>

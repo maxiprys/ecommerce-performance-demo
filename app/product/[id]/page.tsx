@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: Props) {
         Back to collection
       </Link>
 
-      <div className="relative aspect-square w-full max-w-xl sm:aspect-[4/3]">
+      <div className="relative aspect-square w-full max-w-xl sm:aspect-4/3">
         {image ? (
           <Image
             alt={product.title}

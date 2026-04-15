@@ -10,10 +10,11 @@ export async function fetchCatalogPage(args: {
     offset: String(args.offset),
     limit: String(args.limit ?? CATALOG_PAGE_SIZE),
   });
-  const t = args.title?.trim();
-  if (t) params.set("title", t);
+  const title = args.title?.trim();
+  if (title) params.set("title", title);
 
   const res = await fetch(`/api/products?${params.toString()}`);
+
   if (!res.ok) throw new Error("Could not load products");
   return res.json() as Promise<Product[]>;
 }

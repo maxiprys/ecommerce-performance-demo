@@ -10,6 +10,7 @@ export type Product = {
     creationAt: string;
     updatedAt: string;
   };
+  rating: number;
   images: string[];
   slug?: string;
   creationAt?: string;
