@@ -32,6 +32,24 @@ This project was created to simulate real-world frontend challenges and demonstr
 
 ---
 
+## 🧪 Mocked Backend API
+
+This project uses a mocked backend built with Next.js Route Handlers to simulate real-world API behavior.
+
+Instead of relying on external services, the API is implemented internally to provide full control over data, performance, and edge cases.
+
+### Features
+
+- REST endpoints (`/api/products`, `/api/products/:id`)
+- Filtering and search support
+- Pagination handling
+- Simulated network latency
+- Decoupled data layer using mock data
+
+This approach ensures reliability during development and better reflects real production scenarios.
+
+---
+
 ## 📊 Performance Case Study
 
 ### Problem
