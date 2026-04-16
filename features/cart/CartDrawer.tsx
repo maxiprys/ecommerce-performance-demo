@@ -25,14 +25,14 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
       {isOpen && (
         <button
           aria-label="Close cart overlay"
-          className="fixed inset-0 z-50 bg-black/40"
+          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
           onClick={onClose}
           type="button"
         />
       )}
 
       <div
-        className={`fixed top-0 right-0 z-50 flex w-full max-w-md min-h-screen flex-col border-l border-zinc-200 bg-white text-zinc-900 shadow-2xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 ${
+        className={`bg-background text-foreground fixed top-0 right-0 z-50 flex min-h-screen w-full max-w-md flex-col border-l border-border/70 shadow-2xl transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
         aria-hidden={!isOpen}
@@ -41,15 +41,17 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
         aria-modal="true"
         aria-labelledby={id ? `${id}-title` : undefined}
       >
-        <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-4 dark:border-zinc-800">
-          <h2
-            className="text-lg font-semibold"
-            id={id ? `${id}-title` : undefined}
-          >
-            Cart
-          </h2>
+        <div className="flex items-center justify-between border-b border-border/70 px-5 py-5">
+          <div>
+            <p className="text-muted-foreground text-[11px] tracking-[0.2em] uppercase">
+              Your selection
+            </p>
+            <h2 className="mt-1 text-lg" id={id ? `${id}-title` : undefined}>
+              Cart
+            </h2>
+          </div>
           <button
-            className="rounded-md p-1.5 transition hover:bg-zinc-100 dark:hover:bg-zinc-900"
+            className="hover:bg-muted rounded-full p-2 transition"
             onClick={onClose}
             type="button"
             aria-label="Close cart"
@@ -58,18 +60,23 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
           </button>
         </div>
 
-        <div className="min-h-[240px] flex-1 space-y-4 overflow-y-auto px-5 py-4">
+        <div className="min-h-[240px] flex-1 space-y-4 overflow-y-auto px-5 py-5">
           {state.items.length === 0 && (
-            <p className="text-muted-foreground text-sm">Your cart is empty</p>
+            <div className="rounded-[1.75rem] border border-dashed border-border px-5 py-8 text-center">
+              <p className="text-base">Your cart is empty</p>
+              <p className="text-muted-foreground mt-2 text-sm leading-6">
+                Add a few pieces from the collection to see them here.
+              </p>
+            </div>
           )}
 
           {state.items.map((item) => (
             <div
               key={item.id}
-              className="animate-in fade-in-0 slide-in-from-bottom-1 flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3 duration-200 dark:border-zinc-800 dark:bg-zinc-900/60"
+              className="animate-in fade-in-0 slide-in-from-bottom-1 flex items-start gap-3 rounded-[1.5rem] border border-border/70 bg-card/90 p-4 duration-200 shadow-sm"
             >
               <div className="flex min-w-0 flex-1 gap-3">
-                <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-white dark:bg-zinc-950">
+                <div className="bg-secondary/55 relative size-18 shrink-0 overflow-hidden rounded-[1.25rem]">
                   <span className="relative block size-full" aria-hidden>
                     {item.image ? (
                       <Image
@@ -82,7 +89,7 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
                     ) : (
                       <Image
                         alt=""
-                        className="object-contain p-1"
+                        className="object-contain p-2"
                         fill
                         sizes="56px"
                         src="/images/placeholder.svg"
@@ -94,13 +101,13 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
                   <p className="line-clamp-2 text-sm font-medium leading-snug">
                     {item.title}
                   </p>
-                  <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                  <p className="text-muted-foreground mt-1 text-sm">
                     {item.quantity} × {formatPrice(item.price)}
                   </p>
-                  <div className="mt-2 inline-flex items-center rounded-md border border-zinc-300 bg-white dark:border-zinc-700 dark:bg-zinc-950">
+                  <div className="mt-3 inline-flex items-center rounded-full border border-border/70 bg-background/90">
                     <button
                       aria-label={`Decrease ${item.title} quantity`}
-                      className="px-2 py-1 text-sm transition hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                      className="hover:bg-muted rounded-full px-3 py-1.5 text-sm transition"
                       onClick={() => decreaseItem(item.id)}
                       type="button"
                     >
@@ -111,7 +118,7 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
                     </span>
                     <button
                       aria-label={`Increase ${item.title} quantity`}
-                      className="px-2 py-1 text-sm transition hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                      className="hover:bg-muted rounded-full px-3 py-1.5 text-sm transition"
                       onClick={() => increaseItem(item.id)}
                       type="button"
                     >
@@ -122,7 +129,7 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
               </div>
 
               <button
-                className="shrink-0 rounded-md px-2 py-1 text-sm text-red-600 transition hover:bg-red-50 hover:text-red-700 dark:text-red-400 dark:hover:bg-red-950/40 dark:hover:text-red-300"
+                className="text-muted-foreground hover:bg-muted hover:text-foreground shrink-0 rounded-full px-3 py-1.5 text-sm transition"
                 onClick={() => removeItem(item.id)}
                 type="button"
               >
@@ -132,10 +139,20 @@ export default function CartDrawer({ id, isOpen, onClose }: Props) {
           ))}
         </div>
 
-        <div className="border-t border-zinc-200 px-5 py-4 dark:border-zinc-800">
-          <p className="mb-3 text-base font-semibold">
-            Total: {formatPrice(total)}
-          </p>
+        <div className="border-t border-border/70 bg-card/70 px-5 py-5">
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-muted-foreground text-[11px] tracking-[0.2em] uppercase">
+                Estimated total
+              </p>
+              <p className="mt-1 text-2xl font-medium tabular-nums">
+                {formatPrice(total)}
+              </p>
+            </div>
+            <p className="text-muted-foreground max-w-40 text-right text-xs leading-5">
+              Taxes and delivery are omitted in this demo flow.
+            </p>
+          </div>
 
           {state.items.length === 0 ? (
             <Button className="w-full" disabled type="button">

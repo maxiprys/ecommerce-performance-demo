@@ -35,9 +35,10 @@ export default function AddToCartButton({ className, product }: Props) {
           ? `${product.title} in cart: ${quantityInCart}`
           : `Add ${product.title} to cart`
       }
-      className={`${!isAdded ? "bg-emerald-600 text-white hover:bg-emerald-700" : ""} ${className ?? ""}`.trim()}
+      className={`${isAdded ? "bg-secondary text-secondary-foreground hover:bg-secondary/80" : "px-6"} ${className ?? ""}`.trim()}
       onClick={handleAddToCart}
       type="button"
+      variant={isAdded ? "secondary" : "default"}
     >
       {isAdded ? `In cart: ${quantityInCart}` : "Add to cart"}
       <Plus aria-hidden className="size-4" />

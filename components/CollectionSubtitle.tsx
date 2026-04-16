@@ -8,10 +8,10 @@ export default function CollectionSubtitle() {
   const loaded = products?.state.quantity ?? 0;
 
   return (
-    <p className="text-muted-foreground text-sm">
+    <p className="text-muted-foreground max-w-md text-sm leading-relaxed">
       {loaded > 0
-        ? `${loaded} product${loaded === 1 ? "" : "s"} in view (load more as you scroll)`
-        : "Preparing the shelf…"}
+        ? `${loaded} product${loaded === 1 ? "" : "s"} ready to browse, with more pieces loading as you move through the collection.`
+        : "Preparing the collection for a smoother first look."}
     </p>
   );
 }
