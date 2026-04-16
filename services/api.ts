@@ -31,8 +31,26 @@ function getBaseUrl() {
     return ""; // browser > relative path
   }
 
-  // server > absolute path
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  // server > absolute path (production-safe)
+  const configured =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.SITE_URL ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL;
+
+  if (configured) {
+    if (configured.startsWith("http://") || configured.startsWith("https://")) {
+      return configured;
+    }
+
+    return `https://${configured}`;
+  }
+
+  const vercelUrl = process.env.VERCEL_URL;
+  if (vercelUrl) {
+    return `https://${vercelUrl}`;
+  }
+
+  return "http://localhost:3000";
 }
 
 async function getProducts(params: GetProductsParams = {}): Promise<Product[]> {
